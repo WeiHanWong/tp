@@ -4,11 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.restaurant.Restaurant;
@@ -155,4 +158,14 @@ public class ModelManager implements Model {
                 && filteredRestaurants.equals(otherModelManager.filteredRestaurants);
     }
 
+    @Override
+    public void sortFilteredRestaurantList(Comparator<Restaurant> comparator) {
+        // Get the underlying list from the address book
+        ObservableList<Restaurant> restaurants = addressBook.getRestaurantList();
+
+        FXCollections.sort(restaurants, comparator);
+
+        // Reapply the predicate to refresh the filtered list
+        updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
+    }
 }

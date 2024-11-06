@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -97,4 +98,6 @@ public interface Model {
      * The restaurant must exist in the address book.
      */
     void unfavouriteRestaurant(Restaurant target);
+
+    void sortFilteredRestaurantList(Comparator<Restaurant> comparator);
 }
